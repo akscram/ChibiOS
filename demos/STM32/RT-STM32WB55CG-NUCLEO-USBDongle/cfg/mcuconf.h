@@ -54,7 +54,7 @@
 #define STM32_PLLP_VALUE                    2
 #define STM32_PLLQ_VALUE                    2
 #define STM32_PLLR_VALUE                    2
-#define STM32_HPRE_VALUE                    1
+#define STM32_HPRE                          STM32_HPRE_DIV1
 #define STM32_PPRE1                         STM32_PPRE1_DIV1
 #define STM32_PPRE2                         STM32_PPRE2_DIV1
 #define STM32_STOPWUCK                      STM32_STOPWUCK_MSI
