@@ -1073,6 +1073,13 @@
     #error "HSE32 not enabled, required by STM32_RTCSEL"
   #endif
 
+#if (!defined(STM32_HSE32SRC) ||                                        \
+     (STM32_HSE32SRC != STM32_HSE32_XTAL &&                             \
+      STM32_HSE32SRC != STM32_HSE32_TCXO &&                             \
+      STM32_HSE32SRC != STM32_HSE32_EXTS))
+  #error "STM32_HSE32SRC should by defined in mcuconf.h with correct value"
+#endif
+
 #endif /* !STM32_HSE32_ENABLED */
 
 /*

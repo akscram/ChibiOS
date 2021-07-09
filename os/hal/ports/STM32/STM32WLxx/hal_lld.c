@@ -198,6 +198,25 @@ static const system_limits_t vos_range2 = {
 #endif /* defined(HAL_LLD_USE_CLOCK_MANAGEMENT) */
 
 /*===========================================================================*/
+/* Driver inline functions.                                                  */
+/*===========================================================================*/
+
+/**
+ * @brief   Configures HSE32 source.
+ */
+__STATIC_INLINE void hse32_set_src(void) {
+
+#if STM32_HSE32_ENABLED
+
+#if STM32_HSE32SRC == STM32_HSE32_TCXO
+  /* Enable PB0-VDDTCXO.*/
+  RCC->CR |= RCC_CR_HSEBYPPWR;
+#endif /* STM32_HSESRC == STM32_HSE_TCXO */
+
+#endif
+}
+
+/*===========================================================================*/
 /* Driver local functions.                                                   */
 /*===========================================================================*/
 
@@ -573,6 +592,7 @@ static bool hal_lld_clock_raw_config(const halclkcfg_t *ccp) {
 
   /* HSE32 setup, if required, before starting the PLL.*/
   if ((ccp->rcc_cr & RCC_CR_HSEON) != 0U) {
+    hse32_set_src();
     hse32_enable();
   }
 
@@ -740,6 +760,7 @@ void stm32_clock_init(void) {
   lsi_init();
   msi_init();
   hsi16_init();
+  hse32_set_src();
   hse32_init();
 
   /* Backup domain initializations.*/
