@@ -1195,7 +1195,7 @@
  * @brief   PLLs input clock frequency.
  */
 #if (STM32_PLLSRC == STM32_PLLSRC_HSE) || defined(__DOXYGEN__)
-#define STM32_PLLCLKIN              (STM32_HSECLK / STM32_PLLM_VALUE)
+#define STM32_PLLCLKIN              (STM32_HSEPRECLK / STM32_PLLM_VALUE)
 
 #elif STM32_PLLSRC == STM32_PLLSRC_MSI
 #define STM32_PLLCLKIN              (STM32_MSICLK / STM32_PLLM_VALUE)
@@ -1280,7 +1280,7 @@
 #define STM32_SYSCLK                STM32_HSI16CLK
 
 #elif (STM32_SW == STM32_SW_HSE)
-#define STM32_SYSCLK                STM32_HSECLK
+#define STM32_SYSCLK                STM32_HSEPRECLK
 
 #elif (STM32_SW == STM32_SW_PLL)
 #define STM32_SYSCLK                STM32_PLL_R_CLKOUT

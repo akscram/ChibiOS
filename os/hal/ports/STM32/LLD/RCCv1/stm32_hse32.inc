@@ -56,10 +56,13 @@
 #if STM32_HSE32_ENABLED
 
 /* HSE clock frequency.*/
+#define STM32_HSECLK STM32_HSE32CLK
+
+/* HSEPRE clock frequency.*/
 #if STM32_HSE32PRE == STM32_HSE32PRE_DIV1
-#define STM32_HSECLK                STM32_HSE32CLK
+#define STM32_HSEPRECLK             (STM32_HSE32CLK)
 #elif STM32_HSE32PRE == STM32_HSE32PRE_DIV2
-#define STM32_HSECLK                (STM32_HSE32CLK / 2)
+#define STM32_HSEPRECLK             (STM32_HSE32CLK / 2)
 #else
 #error "invalid STM32_HSE32PRE value specified"
 #endif
