@@ -65,6 +65,10 @@
 #error "STM32_RCC_HAS_MSI not defined in stm32_registry.h"
 #endif
 
+#if !defined(STM32_RCC_MSI_USED_AFTER_STANDBY)
+#error "STM32_RCC_MSI_USED_AFTER_STANDBY not defined in stm32_registry.h"
+#endif
+
 /* Checks on configurations.*/
 #if !defined(STM32_MSIPLL_ENABLED)
 #error "STM32_MSIPLL_ENABLED not defined in mcuconf.h"
@@ -74,9 +78,13 @@
 #error "STM32_MSIRANGE not defined in mcuconf.h"
 #endif
 
+#if STM32_RCC_MSI_USED_AFTER_STANDBY
+
 #if !defined(STM32_MSISRANGE)
 #error "STM32_MSISRANGE not defined in mcuconf.h"
 #endif
+
+#endif // STM32_RCC_MSI_USED_AFTER_STANDBY
 
 #if !defined(STM32_LSE_ENABLED)
 #error "STM32_LSE_ENABLED not defined in mcuconf.h"
@@ -132,6 +140,8 @@
 /**
  * @brief   MSIS frequency.
  */
+#if STM32_RCC_MSI_USED_AFTER_STANDBY
+
 #if STM32_MSISRANGE == STM32_MSISRANGE_1M
   #define STM32_MSISCLK             1000000U
 
@@ -147,6 +157,8 @@
 #else
   #error "invalid STM32_MSISRANGE value specified"
 #endif
+
+#endif // STM32_RCC_MSI_USED_AFTER_STANDBY
 
 /* Some headers do not have this definition.*/
 #if !defined(RCC_CFGR_SWS_MSI)
@@ -220,6 +232,7 @@ __STATIC_INLINE void msi_init(void) {
   while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_MSI)
     ;                                       /* Wait until MSI is selected.  */
 
+#if STM32_RCC_MSI_USED_AFTER_STANDBY
   /* Updating MSISRANGE value. MSISRANGE can be set only when MSIRGSEL is high.
      This range is used exiting the Standby mode until MSIRGSEL is set.*/
   cr      |= RCC_CR_MSIRGSEL;
@@ -229,6 +242,7 @@ __STATIC_INLINE void msi_init(void) {
   csr     &= ~STM32_MSISRANGE_MASK;
   csr     |= STM32_MSISRANGE;
   RCC->CSR = csr;
+#endif
 }
 
 /*===========================================================================*/

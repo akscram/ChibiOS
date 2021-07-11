@@ -49,6 +49,8 @@
 #define STM32_RCC_PLL_HAS_Q                 TRUE
 #define STM32_RCC_PLL_HAS_R                 TRUE
 
+#define STM32_RCC_MSI_USED_AFTER_STANDBY    TRUE
+
 /* ADC attributes.*/
 #define STM32_HAS_ADC1                      TRUE
 #define STM32_HAS_ADC2                      FALSE

@@ -58,6 +58,8 @@
 #define STM32_RCC_PLLSAI2_HAS_Q             TRUE
 #define STM32_RCC_PLLSAI2_HAS_R             TRUE
 
+#define STM32_RCC_MSI_USED_AFTER_STANDBY    TRUE
+
 /*===========================================================================*/
 /* Common.                                                                   */
 /*===========================================================================*/
